@@ -1,0 +1,331 @@
+api-gateway-learning/
+│
+├─── 📖 START HERE
+│    └── START_HERE.md ..................... Navigation guide (read this first!)
+│
+├─── 🚀 QUICK START
+│    ├── QUICK_START.md ................... 5-minute getting started
+│    └── SETUP_AND_RUN.md ................. Installation and running guide
+│
+├─── 🐍 CORE APPLICATION (566 lines)
+│    ├── main.py .......................... FastAPI application (225 lines)
+│    │                                    - 6 API endpoints
+│    │                                    - Request validation
+│    │                                    - Rate limiting integration
+│    │                                    - Metrics tracking
+│    │
+│    ├── rate_limiter.py ................. Token bucket algorithm (126 lines)
+│    │                                    - TokenBucket class
+│    │                                    - RateLimiter class
+│    │                                    - Per-client rate limiting
+│    │
+│    ├── metrics.py ....................... Metrics collection (84 lines)
+│    │                                    - Track requests
+│    │                                    - Calculate statistics
+│    │                                    - Expose metrics
+│    │
+│    ├── mock_service.py ................. Mock backend service (94 lines)
+│    │                                    - Simulates /users endpoint
+│    │                                    - Simulates /data endpoint
+│    │                                    - Simulates /health endpoint
+│    │
+│    └── models.py ........................ Pydantic data models (37 lines)
+│                                         - ForwardRequest
+│                                         - APIResponse
+│                                         - RateLimitResponse
+│
+├─── ✅ TESTING (443 lines)
+│    └── test_gateway.py .................. Full test suite
+│                                         - 40+ test cases
+│                                         - TestTokenBucket
+│                                         - TestRateLimiter
+│                                         - TestMetrics
+│                                         - TestAPIEndpoints
+│                                         - TestRateLimitingIntegration
+│                                         - TestEndToEnd
+│
+├─── 📚 DOCUMENTATION (2,365 lines)
+│    ├── README.md ....................... Main documentation
+│    │                                    - What the project does
+│    │                                    - How rate limiting works
+│    │                                    - How metrics work
+│    │                                    - Running locally
+│    │                                    - Design decisions
+│    │                                    - Interview talking points
+│    │
+│    ├── START_HERE.md ................... This is where to start (7 min)
+│    │                                    - Decision tree
+│    │                                    - File guide
+│    │                                    - Architecture overview
+│    │                                    - Common questions
+│    │
+│    ├── QUICK_START.md .................. 5-minute setup and test
+│    │
+│    ├── SETUP_AND_RUN.md ................ Complete setup guide
+│    │                                    - Prerequisites
+│    │                                    - Virtual environment setup
+│    │                                    - Docker setup
+│    │                                    - Verification steps
+│    │                                    - Troubleshooting
+│    │
+│    ├── TESTING_GUIDE.md ................ Human-friendly testing
+│    │                                    - Rate limit testing
+│    │                                    - Metrics testing
+│    │                                    - Error testing
+│    │                                    - Performance monitoring
+│    │                                    - Common gotchas
+│    │
+│    ├── EXAMPLES.md ..................... Copy-paste commands
+│    │                                    - Health check examples
+│    │                                    - Forward request examples
+│    │                                    - Rate limit testing examples
+│    │                                    - Metrics examples
+│    │                                    - Python testing examples
+│    │
+│    ├── PROJECT_STRUCTURE.md ............ Detailed code organization
+│    │                                    - File-by-file breakdown
+│    │                                    - Architecture patterns
+│    │                                    - Design decisions
+│    │                                    - Learning value
+│    │
+│    ├── PROJECT_SUMMARY.md ............. Project overview (this file)
+│    │                                    - What's included
+│    │                                    - Features implemented
+│    │                                    - Interview prep
+│    │                                    - Success checklist
+│    │
+│    └── PROJECT_TREE.txt ............... This tree structure
+│
+├─── ⚙️ CONFIGURATION
+│    ├── requirements.txt ................ Python dependencies
+│    │                                    - fastapi 0.104.1
+│    │                                    - uvicorn 0.24.0
+│    │                                    - pydantic 2.5.0
+│    │                                    - python-multipart 0.0.6
+│    │                                    - pytest 7.4.3
+│    │                                    - httpx 0.25.2
+│    │
+│    ├── Dockerfile ...................... Docker containerization
+│    │                                    - Python 3.11-slim base
+│    │                                    - Port 8000 exposed
+│    │
+│    └── .gitignore ...................... Git ignore rules
+│                                         - Python cache
+│                                         - Virtual environments
+│                                         - IDE configs
+│
+│
+📊 PROJECT STATISTICS
+├─ Total Files: 17
+├─ Total Lines of Code: 3,442
+│  ├─ Python: 566 lines
+│  ├─ Tests: 443 lines
+│  ├─ Documentation: 2,365 lines
+│  └─ Config: 68 lines
+├─ Test Cases: 40+
+├─ Python Modules: 5
+└─ Documentation Files: 8
+
+
+🎯 START HERE PATHS
+
+New User? (5 minutes)
+├─ QUICK_START.md
+└─ python main.py
+
+Learner? (1 hour)
+├─ START_HERE.md
+├─ README.md
+├─ SETUP_AND_RUN.md
+└─ rate_limiter.py
+
+Developer? (2 hours)
+├─ PROJECT_STRUCTURE.md
+├─ All Python files
+├─ test_gateway.py
+└─ All documentation
+
+Interview Prep? (30 minutes)
+├─ README.md (rate limiting section)
+├─ rate_limiter.py
+├─ main.py
+└─ Think about trade-offs
+
+Tester? (1 hour)
+├─ TESTING_GUIDE.md
+├─ EXAMPLES.md
+├─ pytest test_gateway.py -v
+└─ Manual testing
+
+
+🚀 QUICK REFERENCE
+
+Command                              Purpose
+─────────────────────────────────────────────────────────────────
+python main.py                       Start the gateway
+pytest test_gateway.py -v            Run all tests
+curl http://localhost:8000/          Health check
+curl http://localhost:8000/docs      Interactive API docs
+pip install -r requirements.txt      Install dependencies
+python3 -m venv venv                 Create virtual env
+source venv/bin/activate             Activate virtual env (Mac/Linux)
+docker build -t api-gateway .        Build Docker image
+docker run -p 8000:8000 api-gateway  Run Docker container
+
+
+📖 DOCUMENTATION READING ORDER
+
+For Different Audiences:
+
+Impatient (~5 min):
+1. QUICK_START.md
+2. Run it
+3. Try /docs endpoint
+
+Busy Developer (~20 min):
+1. START_HERE.md
+2. QUICK_START.md
+3. README.md (just rate limiting section)
+4. Run it
+
+Student Learning (~1 hour):
+1. START_HERE.md
+2. README.md (full)
+3. SETUP_AND_RUN.md
+4. rate_limiter.py (code)
+5. main.py (code)
+6. TESTING_GUIDE.md
+
+Complete Learning (~2-3 hours):
+1. START_HERE.md
+2. All documentation files
+3. All Python source files
+4. Run tests
+5. Experiment with code
+
+
+✅ DELIVERABLES CHECKLIST
+
+Application:
+✓ FastAPI server
+✓ Rate limiting (token bucket)
+✓ Metrics collection
+✓ Mock backend service
+✓ Data validation
+✓ Error handling
+✓ Clean code organization
+
+Testing:
+✓ Unit tests
+✓ Integration tests
+✓ API endpoint tests
+✓ Rate limiting tests
+✓ End-to-end tests
+✓ 40+ test cases
+
+Documentation:
+✓ Main README
+✓ Quick start guide
+✓ Setup guide
+✓ Testing guide
+✓ Examples
+✓ Project structure
+✓ Navigation guide
+
+Configuration:
+✓ requirements.txt
+✓ Dockerfile
+✓ .gitignore
+
+Quality:
+✓ Clear, readable code
+✓ Type hints throughout
+✓ Comprehensive comments
+✓ Interview-ready
+✓ Educational focus
+✓ Defensible design choices
+
+
+🎓 LEARNING OUTCOMES
+
+After working through this project, you'll understand:
+
+Backend Concepts:
+- How APIs work (request/response)
+- REST principles
+- Status codes and error handling
+- Request validation
+
+Rate Limiting:
+- Why rate limiting matters
+- Token bucket algorithm
+- Per-client rate limiting
+- Handling bursts vs average rates
+
+Metrics:
+- What to measure
+- How to collect metrics
+- Calculating derived metrics (averages, rates)
+- Exposing metrics for monitoring
+
+System Design:
+- Separation of concerns
+- Module independence
+- Simple but correct implementation
+- Trade-offs and decisions
+
+Testing:
+- Unit testing with pytest
+- Integration testing
+- Testing rate limiting behavior
+- Testing error cases
+
+Code Quality:
+- Writing readable code
+- Type hints and docstrings
+- Organizing projects
+- Following conventions
+
+
+🔗 PROJECT CONNECTIONS
+
+File Dependencies:
+
+main.py
+├─ imports rate_limiter.py
+├─ imports metrics.py
+├─ imports mock_service.py
+├─ imports models.py
+└─ uses FastAPI
+
+rate_limiter.py
+└─ standalone (no imports from project)
+
+metrics.py
+└─ standalone (no imports from project)
+
+mock_service.py
+└─ standalone (no imports from project)
+
+models.py
+└─ uses Pydantic only
+
+test_gateway.py
+├─ imports all above modules
+├─ uses pytest
+└─ uses FastAPI TestClient
+
+
+🎯 NEXT STEPS
+
+1. Open START_HERE.md
+2. Pick your path (quick/learning/complete)
+3. Follow that path
+4. Run the code
+5. Read the code
+6. Run the tests
+7. Understand it deeply
+8. Use it in interviews
+9. Optionally: extend it
+
+That's it. You've got everything you need.
